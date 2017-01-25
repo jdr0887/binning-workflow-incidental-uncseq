@@ -1,0 +1,15 @@
+<features name="incidental-uncseq-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
+
+  <feature name="incidental-uncseq" version="${project.version}" resolver="(obr)">
+    <bundle>mvn:org.renci.binning.workflows.incidental-uncseq/incidental-uncseq-commons/${project.version}</bundle>
+    <bundle>mvn:org.renci.binning.workflows.incidental-uncseq/incidental-uncseq-commands/${project.version}</bundle>    
+    <bundle>mvn:org.renci.binning.workflows.incidental-uncseq/incidental-uncseq-executor/${project.version}</bundle>
+    <bundle>mvn:org.renci.binning.workflows.incidental-uncseq/incidental-uncseq-ws/${project.version}</bundle>
+  </feature>
+
+</features>
+
+
+
+
+

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions id="definitions" targetNamespace="http://activiti.org/bpmn20" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn">
+
+  <process id="uncseq_incidental_binning" name="UNCSeqIncidentalBinning">
+
+    <startEvent id="start" />
+    <serviceTask id="init" activiti:class="org.renci.binning.incidental.InitializationDelegate" />
+    <serviceTask id="loadVCF" activiti:class="org.renci.binning.incidental.uncseq.executor.LoadVCFDelegate" />
+    <serviceTask id="annotateVariants" activiti:class="org.renci.binning.incidental.uncseq.executor.AnnotateVariantsDelegate" />
+    <serviceTask id="updateFrequencies" activiti:class="org.renci.binning.incidental.uncseq.executor.UpdateFrequenciesDelegate" />
+    <serviceTask id="loadMissing" activiti:class="org.renci.binning.incidental.uncseq.executor.LoadMissingDelegate" />
+    <serviceTask id="updateDiagnosticBins" activiti:class="org.renci.binning.incidental.uncseq.executor.UpdateIncidentalBinsDelegate" />
+    <serviceTask id="finalize" activiti:class="org.renci.binning.incidental.FinalizeDelegate" />
+    <endEvent id="end" />
+
+    <sequenceFlow sourceRef="start" targetRef="init" />
+    <sequenceFlow sourceRef="init" targetRef="loadVCF" />
+    <sequenceFlow sourceRef="loadVCF" targetRef="annotateVariants" />
+    <sequenceFlow sourceRef="annotateVariants" targetRef="updateFrequencies" />
+    <sequenceFlow sourceRef="updateFrequencies" targetRef="loadMissing" />
+    <sequenceFlow sourceRef="loadMissing" targetRef="updateIncidentalBins" />
+    <sequenceFlow sourceRef="updateIncidentalBins" targetRef="finalize" />
+    <sequenceFlow sourceRef="finalize" targetRef="end" />
+
+  </process>
+
+</definitions>

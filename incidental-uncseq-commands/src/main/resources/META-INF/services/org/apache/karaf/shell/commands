@@ -1,0 +1,5 @@
+org.renci.binning.incidental.uncseq.commands.AnnotateVariantsAction
+org.renci.binning.incidental.uncseq.commands.CreateBinningJobAction
+org.renci.binning.incidental.uncseq.commands.ListJobsAction
+org.renci.binning.incidental.uncseq.commands.LoadVCFAction
+org.renci.binning.incidental.uncseq.commands.UpdateFrequenciesAction
