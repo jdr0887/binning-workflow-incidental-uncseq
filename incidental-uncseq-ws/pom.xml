@@ -2,13 +2,13 @@
   <parent>
     <groupId>org.renci.binning.workflows</groupId>
     <artifactId>incidental-uncseq</artifactId>
-    <version>0.0.4-SNAPSHOT</version>
+    <version>0.0.4</version>
   </parent>
   <name>Binning :: Workflow :: Incidental UNCSeq :: Web Service</name>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.renci.binning.workflows.incidental-uncseq</groupId>
   <artifactId>incidental-uncseq-ws</artifactId>
-  <version>0.0.4-SNAPSHOT</version>
+  <version>0.0.4</version>
   <packaging>bundle</packaging>
   <dependencies>
     <dependency>
