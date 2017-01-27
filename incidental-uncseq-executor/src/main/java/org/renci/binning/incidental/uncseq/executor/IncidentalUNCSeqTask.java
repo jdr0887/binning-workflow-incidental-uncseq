@@ -1,7 +1,5 @@
 package org.renci.binning.incidental.uncseq.executor;
 
-import static org.renci.binning.core.Constants.BINNING_HOME;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,11 +46,6 @@ public class IncidentalUNCSeqTask implements Runnable {
 
             Map<String, Object> variables = new HashMap<String, Object>();
             variables.put("binningJobId", binningJobId);
-            variables.put("irods.home", "/projects/mapseq/apps/irods-4.2.0/icommands");
-            // variables.put("process.data.dir", "/opt/Bin2/process_data");
-
-            String binningHome = System.getenv(BINNING_HOME);
-            variables.put(BINNING_HOME, binningHome);
 
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("uncseq_incidental_binning", variables);
 

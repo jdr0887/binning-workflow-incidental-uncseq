@@ -1,6 +1,8 @@
 package org.renci.binning.incidental.uncseq.commons;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -28,11 +30,8 @@ public class LoadVCFCallable extends AbstractLoadVCFCallable {
 
     private static final Logger logger = LoggerFactory.getLogger(LoadVCFCallable.class);
 
-    private String binningDirectory;
-
-    public LoadVCFCallable(BinningDAOBeanService daoBean, IncidentalBinningJob binningJob, String binningDirectory) {
+    public LoadVCFCallable(BinningDAOBeanService daoBean, IncidentalBinningJob binningJob) {
         super(daoBean, binningJob);
-        this.binningDirectory = binningDirectory;
     }
 
     @Override
@@ -93,8 +92,11 @@ public class LoadVCFCallable extends AbstractLoadVCFCallable {
         avuMap.put("MaPSeqJobName", "GATKApplyRecalibration");
         avuMap.put("MaPSeqMimeType", "TEXT_VCF");
         String irodsFile = IRODSUtils.findFile(avuMap);
-        String participantDir = String.format("%s/annotation/ncgenes/%s", binningDirectory, participant);
-        File vcfFile = IRODSUtils.getFile(irodsFile, participantDir);
+        logger.info("irodsFile = {}", irodsFile);
+        Path participantPath = Paths.get(System.getProperty("karaf.data"), "tmp", "NC_GENES", participant);
+        participantPath.toFile().mkdirs();
+        File vcfFile = IRODSUtils.getFile(irodsFile, participantPath.toString());
+        logger.info("vcfFile: {}", vcfFile.getAbsolutePath());
         return vcfFile;
     }
 
@@ -102,7 +104,7 @@ public class LoadVCFCallable extends AbstractLoadVCFCallable {
         try {
             BinningDAOManager daoMgr = BinningDAOManager.getInstance();
             IncidentalBinningJob binningJob = daoMgr.getDAOBean().getIncidentalBinningJobDAO().findById(4218);
-            LoadVCFCallable callable = new LoadVCFCallable(daoMgr.getDAOBean(), binningJob, "/tmp");
+            LoadVCFCallable callable = new LoadVCFCallable(daoMgr.getDAOBean(), binningJob);
             callable.call();
         } catch (BinningDAOException | BinningException e) {
             e.printStackTrace();
